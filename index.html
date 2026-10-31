@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>منصة نجوم الصغار التعليمية</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--p:#7c4dbd;--pd:#5a3394;--m:#d9bff2;--ml:#f3e8fc;--bg:#fff8f1;--pk:#ff9ec7;--y:#ffd56b;--g:#7fd8b0;--t:#3a2a55;--r:22px}
+*{box-sizing:border-box;margin:0}
+body{font-family:Cairo,Tahoma,sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
+header{background:linear-gradient(120deg,var(--p),#a56ce0);color:#fff;padding:12px 20px;display:flex;align-items:center;gap:12px;border-radius:0 0 28px 28px;box-shadow:0 6px 20px #7c4dbd44;position:sticky;top:0;z-index:5}
+header h1{font-size:1.3rem;flex:1;font-weight:900}
+button,.btn{font:inherit;cursor:pointer;border:0;border-radius:16px;padding:10px 18px;background:var(--y);color:var(--t);font-weight:700;transition:.2s;box-shadow:0 4px 0 #e0b23f}
+button:hover{transform:translateY(-2px)}button:active{transform:translateY(3px);box-shadow:none}
+button.s{background:#fff;box-shadow:0 4px 0 var(--m)}button.d{background:#ff8a8a;box-shadow:0 4px 0 #d86a6a;color:#fff}
+main{max-width:1050px;margin:20px auto;padding:0 16px 90px}
+.card{background:#fff;border-radius:var(--r);padding:18px;box-shadow:0 8px 24px #7c4dbd1a;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+.sub{cursor:pointer;text-align:center;border-radius:26px;padding:12px;transition:.25s;border:3px solid transparent}
+.sub:hover{transform:translateY(-6px) rotate(-1.5deg);border-color:var(--m)}
+.sub svg{width:120px;height:120px}
+.bar{height:12px;background:var(--ml);border-radius:9px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pk),var(--p));border-radius:9px;transition:width .6s}
+input,select{font:inherit;width:100%;padding:11px 14px;border:2px solid var(--m);border-radius:14px;margin:5px 0 10px;background:#fffdfb}
+input:focus,select:focus{outline:0;border-color:var(--p)}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}.tabs button{flex:1;background:var(--ml);box-shadow:none}.tabs .on{background:var(--p);color:#fff}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;background:linear-gradient(135deg,var(--ml),#ffe9f3);overflow:hidden}
+.hero svg{width:100%;height:auto}
+@media(max-width:700px){.hero{grid-template-columns:1fr}}
+.tag{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.8rem;font-weight:700;background:var(--ml)}.tag.ok{background:#c8f3de}.tag.go{background:#fff0c2}
+table{width:100%;border-collapse:collapse}td,th{padding:8px;text-align:right;border-bottom:1px solid var(--ml);font-size:.9rem}
+.row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 0;border-bottom:1px dashed var(--m)}
+iframe{width:100%;height:68vh;border:0;border-radius:18px;background:#fff}
+.stat{text-align:center;font-weight:900;font-size:2rem;color:var(--p)}
+#fab{position:fixed;bottom:18px;left:18px;width:64px;height:64px;border-radius:50%;padding:0;font-size:1.9rem;background:var(--pk);box-shadow:0 6px 18px #ff9ec788;z-index:9;animation:bob 2.5s infinite}
+@keyframes bob{50%{transform:translateY(-7px)}}
+#chat{position:fixed;bottom:92px;left:18px;width:min(340px,92vw);background:#fff;border-radius:24px;box-shadow:0 12px 40px #5a339455;display:none;z-index:9;overflow:hidden}
+#chat h4{background:var(--p);color:#fff;padding:12px 16px}
+#msgs{height:250px;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.b{padding:8px 13px;border-radius:16px;max-width:85%;font-size:.92rem;line-height:1.6}.b.bot{background:var(--ml);align-self:flex-start}.b.me{background:var(--y);align-self:flex-end}
+#chat form{display:flex;gap:6px;padding:8px}#chat input{margin:0}
+.modal{position:fixed;inset:0;background:#3a2a5599;display:none;place-items:center;z-index:20;padding:16px}.modal.on{display:grid}
+.modal>div{background:#fff;border-radius:26px;padding:22px;max-width:560px;max-height:85vh;overflow:auto}
+.modal li{margin:6px 22px;line-height:1.8}
+.toast{position:fixed;top:80px;right:50%;transform:translateX(50%);background:var(--t);color:#fff;padding:10px 22px;border-radius:30px;z-index:30}
+</style>
+</head>
+<body>
+<header>
+  <svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="21" fill="#ffd56b"/><path d="M22 8l4 9 10 1-7.5 6.5 2.5 10L22 29l-9 5.5 2.5-10L8 18l10-1z" fill="#fff"/></svg>
+  <h1>منصة نجوم الصغار</h1>
+  <button class="s" onclick="guide()">📖 دليل الاستخدام</button>
+  <button class="s" id="out" onclick="logout()" style="display:none">خروج</button>
+</header>
+<main id="app"></main>
+<button id="fab" onclick="toggleChat()" title="مساعد المنصة">🤖</button>
+<div id="chat"><h4>🤖 صديقي المساعد</h4><div id="msgs"></div>
+<form onsubmit="ask(event)"><input id="q" placeholder="اكتب سؤالك..." autocomplete="off"><button>أرسل</button></form></div>
+<div class="modal" id="gm" onclick="if(event.target==this)this.classList.remove('on')"><div id="gb"></div></div>
+
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const GR=['الأول','الثاني','الثالث','الرابع','الخامس','السادس'];
+const SUB=[{id:'ar',n:'اللغة العربية',c:'#ff9ec7'},{id:'math',n:'الرياضيات',c:'#ffd56b'},{id:'sci',n:'العلوم',c:'#7fd8b0'},{id:'soc',n:'الدراسات الاجتماعية',c:'#8ec5ff'},{id:'rel',n:'التربية الدينية',c:'#c9a7e8'},{id:'pc',n:'الحاسب الآلي',c:'#ffb27a'},{id:'en',n:'اللغة الإنجليزية',c:'#9be3e3'}];
+const subOf=id=>SUB.find(s=>s.id==id);
+/* ---------- storage ---------- */
+const mem={};const LS={g:k=>{try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}};
+const SS={g:k=>{try{return sessionStorage.getItem(k)}catch(e){return mem['s'+k]??null}},s:(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){mem['s'+k]=v}},r:k=>{try{sessionStorage.removeItem(k)}catch(e){delete mem['s'+k]}}};
+let db=(()=>{try{return JSON.parse(LS.g('nojoom')||'null')}catch(e){return null}})()||{users:[{u:'admin',p:'admin123',n:'المسؤول',r:'admin'}],lessons:[{id:'demo1',g:1,s:'math',t:'تدريب الجمع (درس تجريبي SCORM)',l:'demo'}],prog:{}};
+let me=SS.g('me'),view={};
+const save=()=>LS.s('nojoom',JSON.stringify(db)),cur=()=>db.users.find(x=>x.u==me);
+const toast=m=>{const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2200)};
+/* ---------- illustrations ---------- */
+const face='<circle cx="42" cy="58" r="3.5" fill="#3a2a55"/><circle cx="62" cy="58" r="3.5" fill="#3a2a55"/><path d="M44 68q8 8 16 0" stroke="#3a2a55" stroke-width="3" fill="none" stroke-linecap="round"/><circle cx="35" cy="66" r="4.5" fill="#ff7aa8" opacity=".5"/><circle cx="69" cy="66" r="4.5" fill="#ff7aa8" opacity=".5"/>';
+const props={
+ar:'<path d="M26 30q13-8 26 0 13-8 26 0v18q-13-8-26 0-13-8-26 0z" fill="#fff" stroke="#3a2a55" stroke-width="2.5"/><text x="39" y="44" font-size="15" font-weight="900" fill="#e0457b">أ</text><text x="60" y="44" font-size="15" font-weight="900" fill="#7c4dbd">ب</text>',
+math:'<rect x="26" y="22" width="52" height="28" rx="8" fill="#fff" stroke="#3a2a55" stroke-width="2.5"/><text x="34" y="43" font-size="19" font-weight="900" fill="#e08a00">١+٢</text>',
+sci:'<path d="M45 14h14v14l16 24H29l16-24z" fill="#e6fff3" stroke="#3a2a55" stroke-width="2.5"/><path d="M36 42h32l8 10H29z" fill="#5fd39a"/><circle cx="50" cy="36" r="3" fill="#fff"/><circle cx="56" cy="28" r="2" fill="#fff"/>',
+soc:'<circle cx="52" cy="34" r="22" fill="#6cb4ff" stroke="#3a2a55" stroke-width="2.5"/><path d="M38 28q8-8 14 0t-4 10q-8 2-10-10zM56 38q10-4 12 6t-10 4z" fill="#7fd8b0"/>',
+rel:'<path d="M62 14a22 22 0 1 0 8 36 17 17 0 1 1-8-36z" fill="#ffd56b" stroke="#3a2a55" stroke-width="2.5"/><path d="M72 18l3 7 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="#fff" stroke="#3a2a55" stroke-width="1.5"/>',
+pc:'<rect x="24" y="14" width="56" height="36" rx="7" fill="#3a2a55"/><rect x="29" y="19" width="46" height="26" rx="4" fill="#bfe8ff"/><path d="M36 38l8-10 6 6 8-9 8 13z" fill="#7fd8b0"/>',
+en:'<rect x="22" y="22" width="26" height="26" rx="6" fill="#ff9ec7" stroke="#3a2a55" stroke-width="2.5"/><rect x="54" y="22" width="26" height="26" rx="6" fill="#ffd56b" stroke="#3a2a55" stroke-width="2.5"/><text x="28" y="43" font-size="18" font-weight="900" fill="#fff" font-family="Arial">A</text><text x="60" y="43" font-size="18" font-weight="900" fill="#3a2a55" font-family="Arial">B</text>'};
+const art=s=>`<svg viewBox="0 0 104 104"><ellipse cx="52" cy="98" rx="30" ry="5" fill="#0001"/><circle cx="52" cy="64" r="30" fill="${subOf(s).c}" stroke="#3a2a55" stroke-width="2.5"/>${face}${props[s]}</svg>`;
+const hero=`<svg viewBox="0 0 400 260"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cfe9ff"/><stop offset="1" stop-color="#ffe9f3"/></linearGradient></defs><rect width="400" height="260" fill="url(#sk)"/><circle cx="330" cy="55" r="32" fill="#ffd56b"/><g fill="#fff"><ellipse cx="90" cy="55" rx="40" ry="16"/><ellipse cx="115" cy="45" rx="26" ry="14"/><ellipse cx="260" cy="95" rx="34" ry="12"/></g><path d="M0 200q90-70 200-20t200-30v110H0z" fill="#b896e6"/><path d="M0 225q120-50 230-10t170-20v65H0z" fill="#8c5fd0"/><path d="M110 190a70 70 0 0 1 140 0" stroke="#ff9ec7" stroke-width="8" fill="none"/><path d="M122 190a58 58 0 0 1 116 0" stroke="#ffd56b" stroke-width="8" fill="none"/><g transform="translate(95 150)"><rect x="-4" y="40" width="48" height="50" rx="14" fill="#ff9ec7"/><circle cx="20" cy="22" r="26" fill="#ffd9b8"/><path d="M-4 18q24-34 48 0q-14-10-48 0z" fill="#5a3394"/><circle cx="11" cy="24" r="3" fill="#3a2a55"/><circle cx="29" cy="24" r="3" fill="#3a2a55"/><path d="M13 33q7 7 14 0" stroke="#3a2a55" stroke-width="2.5" fill="none"/></g><g transform="translate(255 150)"><rect x="-4" y="40" width="48" height="50" rx="14" fill="#7fd8b0"/><circle cx="20" cy="22" r="26" fill="#f2c9a0"/><path d="M-4 14q24-26 48 0z" fill="#3a2a55"/><circle cx="11" cy="24" r="3" fill="#3a2a55"/><circle cx="29" cy="24" r="3" fill="#3a2a55"/><path d="M13 33q7 7 14 0" stroke="#3a2a55" stroke-width="2.5" fill="none"/><rect x="-14" y="62" width="34" height="24" rx="4" fill="#ffd56b" stroke="#3a2a55" stroke-width="2"/></g></svg>`;
+/* ---------- SCORM runtime (1.2 + 2004) ---------- */
+let cl=null; // current lesson
+const pk=l=>me+'|'+l,pd=l=>db.prog[pk(l)]||(db.prog[pk(l)]={});
+const st=(u,l)=>{const d=db.prog[u+'|'+l]||{};return d['cmi.core.lesson_status']||d['cmi.completion_status']||'not attempted'};
+const done=(u,l)=>['completed','passed'].includes(st(u,l));
+let err='0';
+const sget=k=>{err='0';if(!cl)return'';return pd(cl)[k]??''},sset=(k,v)=>{err='0';if(!cl)return'false';pd(cl)[k]=String(v);if(k=='cmi.success_status'&&v=='passed')pd(cl)['cmi.completion_status']='completed';return'true'},sc=()=>{save();err='0';return'true'};
+window.API={LMSInitialize:()=>{err='0';return'true'},LMSFinish:sc,LMSGetValue:sget,LMSSetValue:sset,LMSCommit:sc,LMSGetLastError:()=>err,LMSGetErrorString:()=>'',LMSGetDiagnostic:()=>''};
+window.API_1484_11={Initialize:()=>{err='0';return'true'},Terminate:sc,GetValue:sget,SetValue:sset,Commit:sc,GetLastError:()=>err,GetErrorString:()=>'',GetDiagnostic:()=>''};
+const DEMO=`<body style="font-family:Tahoma;text-align:center;direction:rtl;background:#fdf6ff;padding:30px"><h2>كم يساوي ٢ + ٣ ؟</h2><div id=o></div><p id=r style="font-size:1.4rem"></p><script>
+function f(w){var p=window;for(var i=0;i<9&&!p.API&&p.parent!=p;i++)p=p.parent;return p.API}
+var A=f();A&&A.LMSInitialize('');
+[4,5,6].forEach(function(n){var b=document.createElement('button');b.textContent=n;b.style.cssText='font-size:2rem;margin:8px;padding:10px 28px;border-radius:18px;border:0;background:#ffd56b;cursor:pointer';b.onclick=function(){var ok=n==5;document.getElementById('r').textContent=ok?'🎉 أحسنت!':'حاول مرة أخرى 💪';if(A&&ok){A.LMSSetValue('cmi.core.score.raw','100');A.LMSSetValue('cmi.core.lesson_status','passed');A.LMSCommit('')}};o.appendChild(b)});
+<\/script></body>`;
+/* ---------- views ---------- */
+function render(){const u=cur();$('#out').style.display=u?'':'none';$('#app').innerHTML=!u?authV():u.r=='admin'?adminV(u):u.r=='parent'?parentV(u):studentV(u)}
+function authV(){const t=view.tab||'in';return `<div class="card hero"><div><h2 style="font-size:1.8rem;color:var(--pd)">أهلاً بك يا بطل! ✨</h2><p style="margin:10px 0;line-height:1.9">تعلّم، العب، واجمع النجوم مع دروس تفاعلية لكل صفوف المرحلة الابتدائية.</p></div>${hero}</div>
+<div class="card" style="max-width:460px;margin:auto"><div class="tabs"><button class="${t=='in'?'on':''}" onclick="tab('in')">دخول</button><button class="${t=='st'?'on':''}" onclick="tab('st')">طالب جديد</button><button class="${t=='pa'?'on':''}" onclick="tab('pa')">ولي أمر</button></div>
+<form onsubmit="auth(event,'${t}')">${t!='in'?'<input name=n placeholder="الاسم بالكامل" required>':''}
+${t=='st'?`<select name=g>${GR.map((x,i)=>`<option value=${i+1}>الصف ${x} الابتدائي</option>`).join('')}</select>`:''}
+${t=='pa'?'<input name=k placeholder="اسم مستخدم ابنك (الطالب)" required>':''}
+<input name=u placeholder="اسم المستخدم" required><input name=p type=password placeholder="كلمة المرور" required><button style="width:100%">${t=='in'?'دخول 🚀':'إنشاء الحساب 🎈'}</button></form></div>`}
+const tab=t=>{view.tab=t;render()};
+function auth(e,t){e.preventDefault();const f=Object.fromEntries(new FormData(e.target));
+if(t=='in'){const u=db.users.find(x=>x.u==f.u&&x.p==f.p);if(!u)return toast('بيانات الدخول غير صحيحة');me=u.u}
+else{if(db.users.some(x=>x.u==f.u))return toast('اسم المستخدم مستخدم من قبل');
+let o={u:f.u,p:f.p,n:f.n,r:t=='st'?'student':'parent'};
+if(t=='st')o.g=+f.g;else{const k=db.users.find(x=>x.u==f.k&&x.r=='student');if(!k)return toast('لم نجد هذا الطالب');o.kids=[k.u]}
+db.users.push(o);save();me=f.u;toast('مرحباً بك! 🎉')}
+SS.s('me',me);view={};render()}
+const logout=()=>{SS.r('me');me=null;view={};render()};
+function pct(u,g,s){const L=db.lessons.filter(l=>l.g==g&&(!s||l.s==s));return L.length?Math.round(L.filter(l=>done(u,l.id)).length/L.length*100):0}
+function studentV(u){
+if(view.play){const l=db.lessons.find(x=>x.id==view.play);return `<div class="card"><div class="row"><b>${esc(l.t)}</b><button class="s" onclick="stop()">⬅ رجوع</button></div><iframe id="fr"></iframe></div>`}
+if(view.sub){const s=subOf(view.sub),L=db.lessons.filter(l=>l.g==u.g&&l.s==s.id);
+return `<div class="card"><div class="row"><b style="font-size:1.3rem">${s.n} — الصف ${GR[u.g-1]}</b><button class="s" onclick="go('sub',0)">⬅ المواد</button></div>${L.length?L.map(l=>`<div class="row"><span>${esc(l.t)}</span><span><span class="tag ${done(u.u,l.id)?'ok':'go'}">${done(u.u,l.id)?'مكتمل ⭐':'ابدأ'}</span> <button onclick="play('${l.id}')">▶ افتح</button></span></div>`).join(''):'<p style="padding:20px;text-align:center">لا توجد دروس هنا بعد، تابعنا قريباً 🌈</p>'}</div>`}
+return `<div class="card hero"><div><h2 style="font-size:1.6rem;color:var(--pd)">مرحباً ${esc(u.n.split(' ')[0])} 👋</h2><p style="margin:8px 0">أنت في الصف ${GR[u.g-1]} الابتدائي</p><div class="bar"><i style="width:${pct(u.u,u.g)}%"></i></div><small>أنجزت ${pct(u.u,u.g)}% من دروسك</small></div>${hero}</div>
+<h3 style="margin:8px 4px">اختر مادتك</h3><div class="grid">${SUB.map(s=>`<div class="card sub" style="background:${s.c}33" onclick="go('sub','${s.id}')">${art(s.id)}<b>${s.n}</b><div class="bar"><i style="width:${pct(u.u,u.g,s.id)}%"></i></div></div>`).join('')}</div>`}
+const go=(k,v)=>{view[k]=v;render()};
+function play(id){view.play=id;cl=id;render();const l=db.lessons.find(x=>x.id==id),fr=$('#fr');l.l=='demo'?fr.srcdoc=DEMO:fr.src=l.l}
+function stop(){cl=null;view.play=0;save();render()}
+function parentV(u){return `<h3 style="margin:8px 4px">متابعة أبنائك 👨‍👩‍👧</h3>${u.kids.map(k=>{const s=db.users.find(x=>x.u==k);if(!s)return'';const L=db.lessons.filter(l=>l.g==s.g);
+const sc=L.map(l=>+(db.prog[k+'|'+l.id]||{})['cmi.core.score.raw']||+(db.prog[k+'|'+l.id]||{})['cmi.score.raw']||0).filter(x=>x);
+return `<div class="card"><div class="row"><b style="font-size:1.2rem">${esc(s.n)} — الصف ${GR[s.g-1]}</b><span class="tag ok">متوسط الدرجات: ${sc.length?Math.round(sc.reduce((a,b)=>a+b)/sc.length):'—'}</span></div>
+${SUB.map(x=>`<div style="margin:10px 0"><span>${x.n}</span> <small>(${pct(k,s.g,x.id)}%)</small><div class="bar"><i style="width:${pct(k,s.g,x.id)}%"></i></div></div>`).join('')}</div>`}).join('')}`}
+function adminV(u){return `<div class="grid"><div class="card"><div class="stat">${db.users.filter(x=>x.r=='student').length}</div>طلاب</div><div class="card"><div class="stat">${db.users.filter(x=>x.r=='parent').length}</div>أولياء أمور</div><div class="card"><div class="stat">${db.lessons.length}</div>دروس</div></div>
+<div class="card"><h3>➕ إضافة درس (حزمة SCORM)</h3><form onsubmit="addL(event)"><select name=g>${GR.map((x,i)=>`<option value=${i+1}>الصف ${x}</option>`).join('')}</select><select name=s>${SUB.map(s=>`<option value=${s.id}>${s.n}</option>`).join('')}</select><input name=t placeholder="عنوان الدرس" required><input name=l dir=ltr placeholder="مسار ملف التشغيل مثل: content/g1/ar/l1/story.html" required><button>حفظ الدرس</button></form></div>
+<div class="card"><h3>📚 الدروس</h3>${db.lessons.map(l=>`<div class="row"><span>ص${l.g} • ${subOf(l.s).n} • ${esc(l.t)}</span><button class="d" onclick="delL('${l.id}')">حذف</button></div>`).join('')||'—'}</div>
+<div class="card"><h3>👥 المستخدمون</h3><table>${db.users.map(x=>`<tr><td>${esc(x.n)}</td><td dir=ltr>${esc(x.u)}</td><td>${{admin:'مسؤول',student:'طالب',parent:'ولي أمر'}[x.r]}</td><td>${x.r!='admin'?`<button class="d" onclick="delU('${esc(x.u)}')">حذف</button>`:''}</td></tr>`).join('')}</table></div>`}
+function addL(e){e.preventDefault();const f=Object.fromEntries(new FormData(e.target));db.lessons.push({id:'l'+Date.now(),g:+f.g,s:f.s,t:f.t,l:f.l});save();toast('تمت الإضافة ✅');render()}
+const delL=id=>{db.lessons=db.lessons.filter(l=>l.id!=id);save();render()},delU=u=>{db.users=db.users.filter(x=>x.u!=u);save();render()};
+/* ---------- guide + chatbot ---------- */
+function guide(){$('#gb').innerHTML=`<h2 style="color:var(--p)">📖 كيف تستخدم المنصة؟</h2><h4>👧 الطالب</h4><ol><li>اضغط «طالب جديد» وأدخل بياناتك واختر صفك.</li><li>اختر المادة ثم الدرس واضغط «افتح».</li><li>أكمل النشاط لتحصل على نجمة ⭐ ويزيد شريط التقدم.</li></ol><h4>👨‍👩‍👧 ولي الأمر</h4><ol><li>سجّل من تبويب «ولي أمر» مع كتابة اسم مستخدم ابنك.</li><li>تابع تقدمه ودرجاته في كل مادة.</li></ol><h4>🛠 المسؤول</h4><ol><li>ادخل بحساب المسؤول (admin / admin123) وغيّر كلمة المرور فور النشر.</li><li>ارفع مجلد حزمة SCORM بعد فك الضغط إلى السيرفر (مثل content/g1/ar/l1/).</li><li>أضف الدرس بالصف والمادة ومسار ملف التشغيل، ويظهر للطلاب فوراً.</li></ol><button style="width:100%" onclick="$('#gm').classList.remove('on')">فهمت 👍</button>`;$('#gm').classList.add('on')}
+const KB=[[/تسجيل|حساب|اشتر/,'للتسجيل اضغط تبويب «طالب جديد» أو «ولي أمر» في صفحة الدخول.'],[/نسيت|كلمة المرور|باسورد/,'اطلب من مسؤول المنصة إعادة إنشاء حسابك.'],[/درس|ابدأ|افتح|مادة/,'اختر مادتك من الصفحة الرئيسية ثم اضغط «افتح» بجانب الدرس.'],[/نجمة|تقدم|درجة/,'تتحدث نجومك وتقدمك تلقائياً عند إنهاء النشاط داخل الدرس.'],[/ولي|أبي|أمي/,'يسجل ولي الأمر ويكتب اسم مستخدم ابنه ليتابع تقدمه.'],[/scorm|ستوري|storyline|رفع|إضافة/,'من حساب المسؤول: انشر Storyline بصيغة SCORM 1.2 أو 2004، فك الضغط، ثم أضف مسار ملف story.html.'],[/مرحبا|اهلا|السلام/,'أهلاً بك يا بطل! كيف أساعدك؟ 🌟']];
+const toggleChat=()=>{const c=$('#chat');c.style.display=c.style.display=='block'?'none':'block';if(!$('#msgs').children.length)say('مرحباً! أنا صديقك المساعد، اسألني عن التسجيل أو الدروس أو التقدم 😊','bot')};
+const say=(t,w)=>{const d=document.createElement('div');d.className='b '+w;d.textContent=t;$('#msgs').append(d);$('#msgs').scrollTop=1e5};
+function ask(e){e.preventDefault();const q=$('#q').value.trim();if(!q)return;say(q,'me');$('#q').value='';const r=KB.find(k=>k[0].test(q));setTimeout(()=>say(r?r[1]:'لم أفهم تماماً، جرّب «دليل الاستخدام» في أعلى الصفحة 📖','bot'),400)}
+render();
+</script>
+</body>
+</html>
